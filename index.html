@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine ❤️</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Prompt:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #c9184a, #ff4d6d, #ff8fa3);
+            color: #fff;
+        }
+
+        /* ===== หน้า ===== */
+        .page {
+            display: none;
+            height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* กรอบรูป */
+        .memory-frame {
+            position: absolute;
+            width: 120px;
+            height: 170px;
+            /* ปรับตามความกว้างจอ */
+            /* max-width: 150px; */
+            /* ไม่ใหญ่เกินบนจอใหญ่ */
+            /* min-width: 90px; */
+            /* ไม่เล็กเกิน */
+            background: white;
+            padding: 6px 6px 18px 6px;
+            border-radius: 10px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .35);
+            overflow: hidden;
+            z-index: 2;
+            animation: floatPaper 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatPaper {
+            from {
+                transform: translateY(0) rotate(var(--tilt));
+            }
+
+            to {
+                transform: translateY(-35px) rotate(var(--tilt));
+            }
+        }
+
+        .memory-frame img {
+            width: 100%;
+            height: 100%;
+            /* aspect-ratio: 1/1; */
+            /* ทำให้เป็นสี่เหลี่ยมจัตุรัส */
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        /* ==== 4 มุม (จัดระยะใหม่ให้ไม่บังข้อความ) ==== */
+
+        .top-left-frame {
+            top: 12vh;
+            /* เดิม 3vh */
+            left: 10vw;
+            /* เลื่อนเข้ามา */
+            --tilt: -12deg;
+            animation-duration: 5s;
+
+        }
+
+
+        .top-right-frame {
+            top: 12vh;
+            right: 10vw;
+            --tilt: 10deg;
+            animation-duration: 3.5s;
+        }
+
+        .bottom-left-frame {
+            bottom: 12vh;
+            left: 10vw;
+            --tilt: 8deg;
+            animation-duration: 6s;
+        }
+
+        .bottom-right-frame {
+            bottom: 12vh;
+            right: 10vw;
+            --tilt: -8deg;
+            animation-duration: 4s;
+        }
+
+        .page:nth-child(3) .btn {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+        }
+
+        .center-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 340px;
+            background: rgba(0, 0, 0, .45);
+            padding: 22px;
+            border-radius: 18px;
+            z-index: 20;
+        }
+
+
+        /* ==== กล่องข้อความตรงกลาง ==== */
+
+        .center-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 340px;
+            background: rgba(0, 0, 0, .45);
+            padding: 22px;
+            border-radius: 18px;
+        }
+
+        /* ==== ปรับเพิ่มสำหรับจอเล็กมาก ==== */
+        @media (max-width: 380px) {
+
+            /* .memory-frame {
+                width: 80vw;
+                max-width: 40px;
+                max-width: none;
+
+            } */
+
+            .center-message {
+                width: 88%;
+                padding: 18px;
+            }
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn .6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== หัวข้อ ===== */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
+        }
+
+        /* ===== กล่องพื้นหลังข้อความ ===== */
+        .content-box {
+            background: rgba(0, 0, 0, .35);
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 750px;
+            margin: auto;
+        }
+
+        /* ===== ปุ่ม ===== */
+        .btn {
+            margin-top: 25px;
+            padding: 14px 28px;
+            font-size: 18px;
+            border: none;
+            border-radius: 40px;
+            background: white;
+            color: #c9184a;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        /* #nextBtn {
+            display: none;
+            opacity: 0;
+            transition: .4s ease;
+        }
+
+        #nextBtn.show {
+            display: inline-block;
+            opacity: 1;
+        } */
+
+
+
+
+        .btn:hover {
+            transform: scale(1.08);
+            background: #c9184a;
+            color: white;
+        }
+
+        /* ===== รูป ===== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .4);
+        }
+
+        /* ===== หัวใจลอย ===== */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            color: #ffccd5;
+            animation: float 6s linear forwards;
+        }
+
+        /* รูปโพราลอยด์ */
+        .polaroid {
+            position: absolute;
+
+            /* 👇 กำหนดขนาดกรอบตามใจ */
+            width: 100px;
+            height: 150px;
+
+            background: white;
+            padding: 10px 10px 25px 10px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+
+            overflow: hidden;
+            /* ⭐ สำคัญมาก ป้องกันรูปทะลุ */
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+            /* ⭐ ทำให้รูปเต็มกรอบ ไม่บิด */
+            border-radius: 6px;
+        }
+
+        .polaroid span {
+            font-size: 10px;
+            /* เล็กลงให้พอดีมือถือ */
+            color: #c9184a;
+            display: block;
+            margin-top: 6px;
+        }
+
+        /* เอียงซ้าย */
+        .left-tilt {
+            position: absolute;
+            left: 4vw;
+            /* ระยะห่างจากขอบจอ */
+            top: 30vh;
+            /* ใช้ vh แทน px */
+            transform: rotate(-8deg);
+        }
+
+        /* เอียงขวา */
+        .right-tilt {
+            position: absolute;
+            right: 4vw;
+            top: 38vh;
+            transform: rotate(8deg);
+        }
+
+        /* ขยับตอน hover (มือถือจะไม่ค่อย hover แต่คอมใช้ได้) */
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.08);
+        }
+
+        @media (max-width:480px) {
+            .polaroid {
+                width: 30vw;
+                min-width: 75px;
+            }
+
+            .left-tilt {
+                top: 60vh;
+            }
+
+            .right-tilt {
+                top: 55vh;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) scale(1.6) rotate(var(--rotate));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PAGE 1 -->
+    <div class="page active">
+        <h1>Happy Valentine Day 💗</h1>
+
+        <div class="content-box">
+            วันนี้วันอะไรเอ่ย? 🌹💭
+            <br><br>
+
+            <input type="text" id="passwordInput" placeholder="พิมพ์คำตอบ เช่น 11/01/2011💕" autocomplete="off" style="
+        width:90%;
+        max-width:300px;
+        padding:14px;
+        font-size:16px;
+        border-radius:30px;
+        border:none;
+        text-align:center;
+        outline:none;
+    ">
+
+            <br><br>
+
+            <!-- ปุ่มยืนยัน -->
+            <button class="btn" id="confirmBtn" onclick="checkPassword()">
+                ยืนยัน 💖
+            </button>
+
+            <!-- ปุ่มไปหน้าถัดไป (ซ่อนก่อน) -->
+            <button class="btn" id="nextBtn" onclick="nextPage()" style="display:none;">
+                กดดูต่อ 💌
+            </button>
+
+            <p id="errorText" style="margin-top:10px;color:#ffd6e0;"></p>
+        </div>
+
+
+        <div class="polaroid left-tilt">
+            <img src="image/หมาคาบ-removebg-preview.png">
+        </div>
+
+        <div class="polaroid right-tilt">
+            <img src="image/หมาคาบ2-removebg-preview.png">
+        </div>
+    </div>
+
+
+    <!-- PAGE 2 -->
+    <div class="page">
+        <h1>ถึงเธอ 💖</h1>
+        <div class="content-box">
+            รู้สึกดีมากเลยน้าที่มีเธอเข้ามา ❤️<br><br>
+            ทุกวันที่มีเธออยู่ มันมีความหมายมากจริงๆ
+            ถ้าเป็นไปได้เค้าก็อยากอยู่ข้างๆเธอแบบนี้ไปนานๆน๊านนเลย 🌹<br><br>
+            อยากให้เธอมีความรักทู้กกวันให้ไม่ต่างจากวันวาเลนไทน์เลย ✨
+            <br>
+            ไม่ว่าจะทำอะไรก็อยากให้มั่นในในตัวเองเข้าไว้น้าาเธอเก่งมากๆ รักตัวเองให้มากๆด้วย🌹<br><br>
+            จะมีเค้าคอยดูอยู่ตรงนี้นะ❤️<br><br>
+            <button class="btn" onclick="nextPage()">ต่อไป ➜</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+
+        <!-- รูป 4 มุม -->
+        <div class="memory-frame corner-frame top-left-frame">
+            <img src="image/001.PNG">
+        </div>
+
+        <div class="memory-frame corner-frame top-right-frame">
+            <img src="image/002.PNG">
+        </div>
+
+        <div class="memory-frame corner-frame bottom-left-frame">
+            <img src="image/003.PNG">
+        </div>
+
+        <div class="memory-frame corner-frame bottom-right-frame">
+            <img src="image/004.PNG">
+        </div>
+
+        <!-- ข้อความกลาง -->
+        <div class="center-message">
+            <h2>เอาดอกไม้มาให้🌹</h2>
+            <p>ไม่มีโอกาสได้ไปให้ต่อหน้าแต่ก็ยังอยากให้อยู่น้าาา </p>
+            <p>ปกติคนอื่นเขาอาจจะให้ดอกกุหลาบ แต่เค้าเห็นคนให้เยอะแล้วเลยอยากให้ดอกอื่นมากกว่า</p>
+            <p>เพราะว่าเธอพิเศษกว่าคนอื่น💝</p>
+        </div>
+        <br>
+        <button class="btn" onclick="nextPage()">หน้าสุดท้าย 🎁</button>
+
+    </div>
+
+
+
+    <!-- PAGE 4 -->
+    <div class="page">
+        <h1>Happy Valentine Day na kub 💕</h1>
+        <div class="content-box">
+            ขอให้ทุกๆวันเป็นวันแห่งรักของเธอเลยน้า และจะมีเค้าอยู่ข้างๆด้วยยย อาจจะบอกช้าหน่อยแต่อยากจะบอกว่าสุขสันต์วันวาเลนไทน์นะครับบางความรู้สึกอาจไม่ได้พูด แต่อยากให้รู้ว่าสำคัญเสมอนะครับ❤️
+        </div>
+    </div>
+
+    <audio id="music" loop>
+        <source src="song/รักคูุณเข้าอีกแล้ว.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll(".page");
+
+        function nextPage() {
+            // if (currentPage === 0) {
+            //     document.getElementById("music").play();
+            // }
+
+            pages[currentPage].classList.remove("active");
+            currentPage++;
+
+            if (currentPage < pages.length) {
+                pages[currentPage].classList.add("active");
+            }
+        }
+
+        /* หัวใจลอย */
+        setInterval(() => {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+
+            const hearts = ["❤️", "💖", "💘", "💕", "💗", "💓", "💝"];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (12 + Math.random() * 18) + "px";
+
+            heart.style.animationDuration = (5 + Math.random() * 4) + "s";
+
+            let rotateDirection = Math.random() > 0.5 ? 360 : -360;
+            heart.style.setProperty("--rotate", rotateDirection + "deg");
+
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+
+        }, 250);
+
+        function checkPassword() {
+
+            const input = document
+                .getElementById("passwordInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+            const correctAnswers = [
+                "14 กุมภาพันธ์ 2569",
+                "วันวาเลนไทน์",
+                "14/02/2026",
+                "valentine"
+            ];
+
+            const nextBtn = document.getElementById("nextBtn");
+            const confirmBtn = document.getElementById("confirmBtn");
+            const errorText = document.getElementById("errorText");
+
+            if (correctAnswers.includes(input)) {
+
+                errorText.innerHTML = "เก่งม้ากก!! 💕";
+
+                // 👇 บังคับแสดงแบบไม่สน CSS อื่น
+                nextBtn.style.display = "inline-block";
+
+                // ซ่อนปุ่มยืนยัน
+                confirmBtn.style.display = "none";
+
+            } else {
+
+                errorText.innerHTML = "ลองใหม่นะคนเก่ง 💗";
+
+            }
+        }
+
+
+        /* กด Enter บนมือถือได้ */
+        document.getElementById("passwordInput")
+            .addEventListener("keydown", function (e) {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    checkPassword();
+                }
+            });
+
+        /* เล่นเพลงทันทีที่แตะหน้าจอ (iPhone ใช้ได้ชัวร์) */
+        const music = document.getElementById("music");
+
+        function startMusicOnce() {
+            music.volume = 0.4;   // ปรับความดังได้
+            music.play().catch(() => { });
+
+            document.removeEventListener("touchstart", startMusicOnce);
+            document.removeEventListener("click", startMusicOnce);
+        }
+
+        document.addEventListener("touchstart", startMusicOnce, { once: true });
+        document.addEventListener("click", startMusicOnce, { once: true });
+
+    </script>
+
+</body>
+
+</html>
