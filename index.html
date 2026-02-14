@@ -297,6 +297,22 @@
             transform: rotate(8deg);
         }
 
+        .left-tilt2 {
+            position: absolute;
+            left: 4vw;
+            top: 45vh;
+            /* กำหนดตำแหน่งจอปกติก่อน */
+            transform: rotate(-8deg);
+        }
+
+        .right-tilt2 {
+            position: absolute;
+            right: 4vw;
+            top: 50vh;
+            transform: rotate(8deg);
+        }
+
+
         /* ขยับตอน hover (มือถือจะไม่ค่อย hover แต่คอมใช้ได้) */
         .polaroid:hover {
             transform: rotate(0deg) scale(1.08);
@@ -311,15 +327,21 @@
             .left-tilt {
                 top: 60vh;
             }
+
             .left-tilt2 {
-                top: 80vh;
+                top: 70vh;
+                left: 4vw;
+                transform: rotate(-8deg);
             }
 
             .right-tilt {
                 top: 55vh;
             }
+
             .right-tilt2 {
-                top: 70vh;
+                top: 65vh;
+                right: 4vw;
+                transform: rotate(8deg);
             }
         }
 
